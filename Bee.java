@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Bee extends binMeta {
 
+    // Nombre d'iteration maximum d'un agent
     private int nc;
 
     public Bee(Data startPoint,Objective obj,long maxTime, int nc)
@@ -43,6 +44,11 @@ public class Bee extends binMeta {
         }
     }
 
+    /**
+     * Fonction de recherche d'une Abeille, inspiré du modele de RandomWalk.
+     * Incrémente intération a chaque passage pour repecter le nombre de mouvement constructif lors d'une recherche ( comme décrit dans l'algo)
+     *
+     */
     @Override
     public void optimize() {
         Random R = new Random();
@@ -50,25 +56,18 @@ public class Bee extends binMeta {
         long startime = System.currentTimeMillis();
         int iteration = 0;
 
-        // main loop
+
         while ((System.currentTimeMillis() - startime < this.maxTime) && iteration < nc)
         {
-            // the random walker can walk in a neighbourhood of D
-            // (Hamming distance is randomly selected among 1, 2 and 3)
+
             int h = 1 + R.nextInt(3);
-
-            // generating a new solution in the neighbour of D with Hamming distance h
             Data newD = D.randomSelectInNeighbour(h);
-
-            // evaluating the quality of the generated solution
             double value = obj.value(newD);
             if (this.objValue > value)
             {
                 this.objValue = value;
                 this.solution = new Data(newD);
             }
-
-            // the walk continues from the new generated solution
             D = newD;
             iteration++;
         }

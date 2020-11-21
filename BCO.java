@@ -32,21 +32,33 @@ public class BCO extends binMeta {
         }
     }
 
+    /**
+     * Simule une ruche en suivant le principe du BCO (voir BeeColonyOpt.pdf a la racine du projet)
+     */
     @Override
     public void optimize() {
         System.out.println(bees);
         long startime = System.currentTimeMillis();
 
+        // Les Abeille arretent de chercher quand le temps maximum est atteints
+        // Ou que la solution optimale a été trouvée
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
 
+            // Début de la recherche pour chaque Abeille
+            // Étape 2
             for (Bee bee : bees) {
                 bee.init(bee.solution, maxTime);
                 bee.optimize();
             }
+
+            // Tri des Abeilles suivant leurs performances
+            // Etape 4
             Collections.sort(bees, (b1, b2) -> {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
             System.out.println(bees);
+
+            // Selction de la meilleure solution partielle
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
         }
