@@ -9,15 +9,15 @@ public class BCO extends binMeta {
 
     public BCO(Data startPoint,Objective obj,long maxTime, int nbBee, int nc) {
         try {
-            String msg = "Impossible de créer l'objet BCO : ";
-            if (maxTime <= 0) throw new Exception(msg + "le temps d'exec mac est inf a 0");
+            String msg = "Impossible to init BCO object: ";
+            if (maxTime <= 0) throw new Exception(msg + "the maximum execution time is 0 or even negative");
             this.maxTime = maxTime;
-            if (nc <= 0) throw new Exception(msg + "le nc est inf a 0");
+            if (nc <= 0) throw new Exception(msg + "the number of constructive moves is 0 or even negative");
             this.nc = nc;
-            if (nbBee <= 0) throw new Exception(msg + "le nbBee est inf a 0");
-            if (startPoint == null) throw new Exception(msg + "le StartPoint est null");
+            if (nbBee <= 0) throw new Exception(msg + "the number of bees is 0 or even negative");
+            if (startPoint == null) throw new Exception(msg + "the reference to the starting point is null");
             this.solution = startPoint;
-            if (obj == null) throw new Exception(msg + "l'objectif est null");
+            if (obj == null) throw new Exception(msg + "the reference to the objective is null");
             this.obj = obj;
             this.objValue = this.obj.value(this.solution);
             this.metaName = "BCO";
