@@ -5,6 +5,8 @@ public class Bee extends binMeta {
     // Nombre d'iteration maximum d'un agent
     private int nc;
 
+    private boolean follower;
+
     public Bee(Data startPoint,Objective obj,long maxTime, int nc)
     {
         try
@@ -26,6 +28,18 @@ public class Bee extends binMeta {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    public boolean isFollower() {
+        return follower;
+    }
+
+    public void danse() {
+
+    }
+
+    public void choice() {
+
     }
 
     public void init(Data startPoint, long maxTime) {
@@ -57,7 +71,7 @@ public class Bee extends binMeta {
         int iteration = 0;
 
 
-        while ((System.currentTimeMillis() - startime < this.maxTime) && iteration < nc)
+        while ((System.currentTimeMillis() - startime < this.maxTime) && iteration < nc && objValue > 0)
         {
 
             int h = 1 + R.nextInt(3);

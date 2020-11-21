@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BCO extends binMeta {
+public class IterativeBCO extends binMeta {
 
     int nc;
     List<Bee> bees;
 
-    public BCO(Data startPoint,Objective obj,long maxTime, int nbBee, int nc) {
+    public IterativeBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         try {
             String msg = "Impossible to init BCO object: ";
             if (maxTime <= 0) throw new Exception(msg + "the maximum execution time is 0 or even negative");
@@ -56,6 +56,7 @@ public class BCO extends binMeta {
             Collections.sort(bees, (b1, b2) -> {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
+
             System.out.println(bees);
 
             // Selction de la meilleure solution partielle
@@ -67,14 +68,14 @@ public class BCO extends binMeta {
     // main
     public static void main(String[] args) {
         int ITMAX = 10000;  // number of iterations
-        int BEESNUMBER = 200;  // number of bees
+        int BEESNUMBER = 100;  // number of bees
         int NC = 10;
 
         // BitCounter
         int n = 50;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
-        BCO bco = new BCO(D, obj, ITMAX, BEESNUMBER, NC);
+        IterativeBCO bco = new IterativeBCO(D, obj, ITMAX, BEESNUMBER, NC);
         System.out.println(bco);
         System.out.println("starting point : " + bco.getSolution());
         System.out.println("optimizing ...");
