@@ -27,6 +27,22 @@ public class Bee extends binMeta {
         }
     }
 
+    public void init(Data startPoint, long maxTime) {
+        try
+        {
+            String msg = "Impossible to init Bee object: ";
+            if (maxTime <= 0) throw new Exception(msg + "the maximum execution time is 0 or even negative");
+            this.maxTime = maxTime;
+            if (startPoint == null) throw new Exception(msg + "the reference to the starting point is null");
+            this.solution = startPoint;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     @Override
     public void optimize() {
         Random R = new Random();
