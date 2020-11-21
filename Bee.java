@@ -51,7 +51,7 @@ public class Bee extends binMeta {
         int iteration = 0;
 
         // main loop
-        while ((System.currentTimeMillis() - startime < this.maxTime) || iteration < nc)
+        while ((System.currentTimeMillis() - startime < this.maxTime) && iteration < nc)
         {
             // the random walker can walk in a neighbourhood of D
             // (Hamming distance is randomly selected among 1, 2 and 3)

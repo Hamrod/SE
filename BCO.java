@@ -35,21 +35,28 @@ public class BCO extends binMeta {
     @Override
     public void optimize() {
         System.out.println(bees);
-        for (Bee bee : bees) {
-            bee.optimize();
+        long startime = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
+
+            for (Bee bee : bees) {
+                bee.init(bee.solution, maxTime);
+                bee.optimize();
+            }
+            Collections.sort(bees, (b1, b2) -> {
+                return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
+            });
+            System.out.println(bees);
+            this.objValue = bees.get(0).objValue;
+            this.solution = bees.get(0).solution;
         }
-        Collections.sort(bees, (b1, b2) -> {
-            return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
-        });
-        System.out.println(bees);
-        this.solution = bees.get(0).solution;
     }
 
     // main
     public static void main(String[] args) {
-        int ITMAX = 1000;  // number of iterations
-        int BEESNUMBER = 100;  // number of bees
-        int NC = 5;
+        int ITMAX = 10000;  // number of iterations
+        int BEESNUMBER = 200;  // number of bees
+        int NC = 10;
 
         // BitCounter
         int n = 50;
