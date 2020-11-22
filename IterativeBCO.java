@@ -60,12 +60,12 @@ public class IterativeBCO extends BCO {
 
     // main
     public static void main(String[] args) {
-        int ITMAX = 10000;  // number of iterations
-        int BEESNUMBER = 100;  // number of bees
+        int ITMAX = 2000;  // number of iterations
+        int BEESNUMBER = 200;  // number of bees
         int NC = 10;
 
         // BitCounter
-        int n = 50;
+        int n = 500;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
         IterativeBCO bco = new IterativeBCO(D, obj, ITMAX, BEESNUMBER, NC);

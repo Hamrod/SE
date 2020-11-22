@@ -42,9 +42,12 @@ public class Bee extends binMeta {
      */
     public void danse(List<Bee> explorateurs) {
         //donne l'indice de la bee a suivre
-        //TODO
-        int test = (int) (Math.random() * explorateurs.size());
-        System.out.println(test);
+        int index = (int) (Math.random() * explorateurs.size()*0.40);
+        System.out.println(index);
+
+        Bee explor = explorateurs.get(index);
+        this.solution = explor.getSolution();
+
     }
 
     /**
