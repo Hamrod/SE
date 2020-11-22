@@ -2,12 +2,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ThreadBCO extends BCO{
+public class ThreadBCO extends BCO implements Runnable{
 
 
     public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         super(startPoint, obj, maxTime, nbBee, nc);
     }
+
+    @Override
+    public void run() {
+        for (Bee bee : bees) {
+            bee.init(bee.solution, maxTime);
+            bee.optimize();
+        }
+    }
+
 
     @Override
     public void optimize() {
@@ -22,43 +31,14 @@ public class ThreadBCO extends BCO{
             }
         }, "ThreadBee1");
 
-        Thread threadBee2 = new Thread(() -> {
-            System.out.println("test");
 
-            for (Bee bee : bees) {
-                bee.init(bee.solution, maxTime);
-                bee.optimize();
-            }
-        }, "ThreadBee2");
-
-        Thread threadBee3 = new Thread(() -> {
-            System.out.println("test");
-
-            for (Bee bee : bees) {
-                bee.init(bee.solution, maxTime);
-                bee.optimize();
-            }
-        }, "ThreadBee3");
-
-        Thread threadBee4 = new Thread(() -> {
-           System.out.println("test");
-
-            for (Bee bee : bees) {
-                bee.init(bee.solution, maxTime);
-                bee.optimize();
-            }
-        }, "ThreadBee4");
-
-
+        Thread thread1 = new Thread(this, "test");
+        thread1.start();
 
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
 
-
-            for (Bee bee : bees) {
-                bee.init(bee.solution, maxTime);
-                bee.optimize();
-            }
-
+            thread1.run();
+            // Run de tous les threads
 
             Collections.sort(bees, (b1, b2) -> {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
