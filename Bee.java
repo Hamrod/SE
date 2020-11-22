@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 
 public class Bee extends binMeta {
@@ -34,12 +35,29 @@ public class Bee extends binMeta {
         return follower;
     }
 
-    public void danse() {
+    /**
+     * Détermine qui une abeille suiveuse va suivre
+     *
+     * @param explorateurs
+     */
+    public void danse(List<Bee> explorateurs) {
+        double test = Math.random() * explorateurs.size() * 0.9;
 
     }
 
-    public void choice() {
+    /**
+     * Détermine si une abeille change d'état (suiveuse / exploratrice) suivant son rang par rapport aux autres.
+     * Une abeille ayant de mauvaise performances a plsu de chance de devenir une suiveuse
+     *
+     * @param index rang de l'abeille par rapport aux autres
+     */
+    public void choice(int index) {
+        double R = Math.random();
+        double seuil = 1 - index * 0.9;
 
+        if (R > seuil) {
+            follower = !follower;
+        }
     }
 
     public void init(Data startPoint, long maxTime) {

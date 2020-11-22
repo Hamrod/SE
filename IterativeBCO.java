@@ -33,9 +33,26 @@ public class IterativeBCO extends BCO {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
 
-            System.out.println(bees);
+            List<Bee> explorateurs = new ArrayList<Bee>();
+            List<Bee> suiveurs = new ArrayList<Bee>();
+            //System.out.println(bees);
+            for (Bee bee : bees) {
+               bee.choice(bees.indexOf(bee));
 
-            // Selction de la meilleure solution partielle
+               if (!bee.isFollower()){
+                   explorateurs.add(bee);
+               }
+               else {
+                   suiveurs.add(bee);
+               }
+            }
+
+            for (Bee bee : suiveurs) {
+                bee.danse(explorateurs);
+            }
+
+
+            // Selection de la meilleure solution partielle
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
         }
