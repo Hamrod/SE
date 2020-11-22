@@ -72,6 +72,7 @@ public class IterativeBCO extends BCO {
         System.out.println("solution : " + bco.getSolution());
         System.out.println();
     }
+    
     private static void creationFermat(int itMax,int beeNb,int nc) {
         int exp = 2;
         int ndigits = 10;
