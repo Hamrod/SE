@@ -1,0 +1,10 @@
+Createurs du projet :
+BEUREL Luca et
+BARBOT Malo
+
+Crée sur une base donnée par Antonio Mucherino
+
+-----------------------------------------------------------------
+
+L'algorythme se base sur le BeeColonyOptimization (BCO) détaillé dans le pdf joint au projet.
+Le but de cet algorithme est résoudre des probleme d'optimisation avec un systeme complexe basé sur des individus simples.

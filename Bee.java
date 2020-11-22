@@ -38,12 +38,11 @@ public class Bee extends binMeta {
     /**
      * Détermine qui une abeille suiveuse va suivre
      *
-     * @param explorateurs
+     * @param explorateurs Liste des explorateurs a suivre
      */
     public void danse(List<Bee> explorateurs) {
         //donne l'indice de la bee a suivre
         int index = (int) (Math.random() * explorateurs.size()*0.40);
-        System.out.println(index);
 
         Bee explor = explorateurs.get(index);
         this.solution = explor.getSolution();
