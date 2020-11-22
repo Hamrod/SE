@@ -41,8 +41,10 @@ public class Bee extends binMeta {
      * @param explorateurs
      */
     public void danse(List<Bee> explorateurs) {
-        double test = Math.random() * explorateurs.size() * 0.9;
-
+        //donne l'indice de la bee a suivre
+        //TODO
+        int test = (int) (Math.random() * explorateurs.size());
+        System.out.println(test);
     }
 
     /**
@@ -54,6 +56,9 @@ public class Bee extends binMeta {
     public void choice(int index) {
         double R = Math.random();
         double seuil = 1 - index * 0.9;
+        //Le seuil permet de gerer le pourcentage de chance qu'une abeille a de suivre/explorer
+        // la courbe est volontairement raide ce qui permet que les meilleurs explorateurs aient plus de chance de continuer
+        // contrairement aux pires qui ont plus de chance de se mettre a suivre
 
         if (R > seuil) {
             follower = !follower;
