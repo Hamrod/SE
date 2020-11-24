@@ -7,4 +7,14 @@ Crée sur une base donnée par Antonio Mucherino
 -----------------------------------------------------------------
 
 L'algorythme se base sur le BeeColonyOptimization (BCO) détaillé dans le pdf joint au projet.
-Le but de cet algorithme est résoudre des probleme d'optimisation avec un systeme complexe basé sur des individus simples.
+Le but de cet algorithme est résoudre des problemes d'optimisation avec un systeme complexe basé sur des individus simples.
+
+Il y a 2 classes principales pour cet algorithme IterativeBCO qui exécute le programme en séquenciel et ThreadBCO qui crée
+des regroupements d'abeilles en threads pour gagner des performances.
+
+
+Pour l'instant, le séquentiel est fonctionnel avec des temps de calcul correct.
+L'implémentation de la version en multithread 1 est en cours : Un nombre fixe d'abeilles par threads.
+
+Nous voudrions aussi ajouter une autre version multi-thread avec un thread par abeille exploratrice et toutes les abeilles suivant cette exploratrice
+dans le même theard.

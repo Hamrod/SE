@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Random;
 
-public class Bee extends binMeta {
+ public class Bee extends binMeta implements Comparable{
 
     // Nombre d'iteration maximum d'un agent
     private int nc;
@@ -23,6 +23,7 @@ public class Bee extends binMeta {
             this.obj = obj;
             this.objValue = this.obj.value(this.solution);
             this.metaName = "Bee";
+            this.follower = false;
         }
         catch (Exception e)
         {
@@ -42,7 +43,7 @@ public class Bee extends binMeta {
      */
     public void danse(List<Bee> explorateurs) {
         //donne l'indice de la bee a suivre
-        int index = (int) (Math.random() * explorateurs.size()*0.40);
+        int index = (int) (Math.random() * explorateurs.size()*0.5);
 
         Bee explor = explorateurs.get(index);
         this.solution = explor.getSolution();
@@ -66,6 +67,7 @@ public class Bee extends binMeta {
             follower = !follower;
         }
     }
+
 
     public void init(Data startPoint, long maxTime) {
         try
@@ -111,4 +113,10 @@ public class Bee extends binMeta {
             iteration++;
         }
     }
-}
+
+     @Override
+     public int compareTo(Object o) {
+            Bee bee = (Bee) o;
+            return this.solution.compareTo(bee.solution);
+     }
+ }

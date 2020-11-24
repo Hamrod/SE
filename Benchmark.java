@@ -1,48 +1,56 @@
 public class Benchmark {
 
-    private static void creationBitCounterIteratif(int itMax,int beeNb,int nc) {
-        int n = 500;
+    private static void creationBitCounterIteratif(int itMax, int beeNb, int nc, boolean trace) {
+        int n = 1000;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
         IterativeBCO bco = new IterativeBCO(D, obj, itMax, beeNb, nc);
-        System.out.println(bco);
-        System.out.println("starting point : " + bco.getSolution());
-        System.out.println("optimizing ...");
+        if (trace) {
+            System.out.println(bco);
+            System.out.println("starting point : " + bco.getSolution());
+            System.out.println("optimizing ...");
+        }
         bco.optimize();
-        System.out.println(bco);
-        System.out.println("solution : " + bco.getSolution());
-        System.out.println();
+        if (trace) {
+            System.out.println(bco);
+            System.out.println("solution : " + bco.getSolution());
+            System.out.println();
+        }
     }
 
-    private static void creationBitCounterThreads(int itMax,int beeNb,int nc) {
-        int n = 500;
+    private static void creationBitCounterThreads(int maxTime, int beeNb, int nc, boolean trace) {
+        int n = 1000;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
-        IterativeBCO bco = new IterativeBCO(D, obj, itMax, beeNb, nc);
-        System.out.println(bco);
-        System.out.println("starting point : " + bco.getSolution());
-        System.out.println("optimizing ...");
+        IterativeBCO bco = new IterativeBCO(D, obj, maxTime, beeNb, nc);
+        if (trace) {
+            System.out.println(bco);
+            System.out.println("starting point : " + bco.getSolution());
+            System.out.println("optimizing ...");
+        }
         bco.optimize();
-        System.out.println(bco);
-        System.out.println("solution : " + bco.getSolution());
-        System.out.println();
+        if (trace) {
+            System.out.println(bco);
+            System.out.println("solution : " + bco.getSolution());
+            System.out.println();
+        }
     }
 
-    private static void creationFermat(int itMax,int beeNb,int nc) {
+    private static void creationFermat(int maxTime, int beeNb, int nc) {
         int exp = 2;
         int ndigits = 10;
-        Objective obj = new Fermat(exp,ndigits);
+        Objective obj = new Fermat(exp, ndigits);
         Data D = obj.solutionSample();
-        IterativeBCO bco = new IterativeBCO(D, obj, itMax, beeNb, nc);
+        IterativeBCO bco = new IterativeBCO(D, obj, maxTime, beeNb, nc);
         System.out.println(bco);
         System.out.println("starting point : " + bco.getSolution());
         System.out.println("optimizing ...");
         bco.optimize();
         System.out.println(bco);
         System.out.println("solution : " + bco.getSolution());
-        Data x = new Data(bco.solution,0,ndigits-1);
-        Data y = new Data(bco.solution,ndigits,2*ndigits-1);
-        Data z = new Data(bco.solution,2*ndigits,3*ndigits-1);
+        Data x = new Data(bco.solution, 0, ndigits - 1);
+        Data y = new Data(bco.solution, ndigits, 2 * ndigits - 1);
+        Data z = new Data(bco.solution, 2 * ndigits, 3 * ndigits - 1);
         System.out.print("equivalent to the equation : " + x.posLongValue() + "^" + exp + " + " + y.posLongValue() + "^" + exp);
         if (bco.objValue == 0.0)
             System.out.print(" == ");
@@ -55,20 +63,20 @@ public class Benchmark {
 
     public static void main(String[] args) {
 
-        int ITMAX = 2000;  // number of iterations
-        int BEESNUMBER = 200;  // number of bees
+        int maxTime = 60000;  // number of iterations
+        int BEESNUMBER = 100;  // number of bees
         int NC = 10;
+        boolean trace = true; // activer ou non les détails d'execution
 
         long startTime = System.currentTimeMillis();
 
-        creationBitCounterIteratif(ITMAX,BEESNUMBER,NC);
-        
-        System.out.println("temps d'exec en séquentiel : "+  (startTime - System.currentTimeMillis()) + " s");
-
-        creationBitCounterThreads(ITMAX,BEESNUMBER,NC);
+        creationBitCounterIteratif(maxTime, BEESNUMBER, NC, trace);
+        System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
 
         startTime = System.currentTimeMillis();
-        System.out.println("temps d'exec avec Threads : "+  (startTime - System.currentTimeMillis()) + " s");
+        creationBitCounterThreads(maxTime, BEESNUMBER, NC, trace);
+
+        System.out.println("Temps d'exec avec Threads : " + (System.currentTimeMillis() - startTime) + " ms");
 
     }
 }
