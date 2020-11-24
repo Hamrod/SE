@@ -73,11 +73,6 @@ public class ThreadBCO extends BCO {
 
             while (threadBee1.isAlive() && threadBee2.isAlive() && threadBee3.isAlive() && threadBee4.isAlive()) {
             }
-            /*
-            bees.sort( (b1, b2) -> {
-                return (b1.compareTo(b2));
-            });*/
-            //tri(bees, 0 , bees.size());
 
             Collections.sort(bees, (b1, b2) -> {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
