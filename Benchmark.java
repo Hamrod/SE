@@ -22,7 +22,7 @@ public class Benchmark {
         System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
         startTime = System.currentTimeMillis();
 
-        IterativeBCO bcoThread = new IterativeBCO(D, obj, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoIteratif.getSolution());
@@ -71,7 +71,7 @@ public class Benchmark {
         System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
         startTime = System.currentTimeMillis();
 
-        IterativeBCO bcoThread = new IterativeBCO(D, obj, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoThread.getSolution());
@@ -121,9 +121,9 @@ public class Benchmark {
 
         System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
         startTime = System.currentTimeMillis();
+/*
 
-
-        IterativeBCO bcoThread = new IterativeBCO(D, cp, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, cp, maxTime, beeNb, nc);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoThread.getSolution());
@@ -137,6 +137,8 @@ public class Benchmark {
             System.out.println("corresponding to the matrix :\n" + cp.show());
         }
         System.out.println("Temps d'exec avec Threads : " + (System.currentTimeMillis() - startTime) + " ms");
+        */
+
     }
 
 
@@ -146,9 +148,9 @@ public class Benchmark {
         int BEESNUMBER = 100;  // number of bees
         int NC = 10;
         System.out.println("Début du benchmark... \n");
-        creationBitCounterBench(maxTime, BEESNUMBER, NC, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, false);
-        creationColortBench(maxTime, BEESNUMBER, NC, false);
+        //creationBitCounterBench(maxTime, BEESNUMBER, NC, false);
+        //creationFermatBench(maxTime, BEESNUMBER, NC, false);
+        creationColortBench(maxTime, BEESNUMBER, NC, true);
         System.out.println("Fin du benchmark... \n");
     }
 }
