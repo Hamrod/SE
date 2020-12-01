@@ -71,12 +71,12 @@ public class ThreadBCO extends BCO {
             threadBee3.start();
             threadBee4.start();
 
-            while (threadBee1.isAlive() && threadBee2.isAlive() && threadBee3.isAlive() && threadBee4.isAlive()) {
+            while (threadBee1.isAlive() || threadBee2.isAlive() || threadBee3.isAlive() || threadBee4.isAlive()) {
+
             }
 
-
-            bees.sort((b1, b2) -> {
-                return b1.compareTo(b2);
+            Collections.sort(bees, (b1, b2) -> {
+                return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
 
             List<Bee> explorateurs = new ArrayList<>();

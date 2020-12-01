@@ -122,12 +122,11 @@ public class IterativeBCO extends BCO {
 
     public static void main(String[] args) {
 
-        int ITMAX = 2000;  // number of iterations
+        int ITMAX = 20000;  // number of iterations
         int BEESNUMBER = 200;  // number of bees
         int NC = 10;
 
         creationBitCounter(ITMAX,BEESNUMBER,NC);
-        creationFermat(ITMAX,BEESNUMBER,NC);
-
+        //creationFermat(ITMAX,BEESNUMBER,NC);
     }
 }
