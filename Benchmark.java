@@ -1,6 +1,6 @@
 public class Benchmark {
 
-    private static void creationBitCounterBench(int maxTime, int beeNb, int nc, boolean trace) {
+    private static void creationBitCounterBench(int maxTime, int beeNb, int nc, int threadNb, boolean trace) {
         long startTime = System.currentTimeMillis();
 
         int n = 20000;
@@ -22,7 +22,7 @@ public class Benchmark {
         System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
         startTime = System.currentTimeMillis();
 
-        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc, threadNb);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoIteratif.getSolution());
@@ -38,7 +38,7 @@ public class Benchmark {
         System.out.println("Temps d'exec avec Threads : " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
-    private static void creationFermatBench(int maxTime, int beeNb, int nc, boolean trace) {
+    private static void creationFermatBench(int maxTime, int beeNb, int nc, int threadNb, boolean trace) {
         long startTime = System.currentTimeMillis();
 
         int exp = 2;
@@ -71,7 +71,7 @@ public class Benchmark {
         System.out.println("Temps d'exec en séquentiel : " + (System.currentTimeMillis() - startTime) + " ms");
         startTime = System.currentTimeMillis();
 
-        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, obj, maxTime, beeNb, nc,  threadNb);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoThread.getSolution());
@@ -99,7 +99,7 @@ public class Benchmark {
 
     }
 
-    private static void creationColortBench(int maxTime, int beeNb, int nc, boolean trace) {
+    private static void creationColortBench(int maxTime, int beeNb, int nc, int threadNb, boolean trace) {
         long startTime = System.currentTimeMillis();
         int n = 4;
         int m = 14;
@@ -123,7 +123,7 @@ public class Benchmark {
         startTime = System.currentTimeMillis();
 
 
-        ThreadBCO bcoThread = new ThreadBCO(D, cp, maxTime, beeNb, nc);
+        ThreadBCO bcoThread = new ThreadBCO(D, cp, maxTime, beeNb, nc, threadNb);
         if (trace) {
             System.out.println(bcoThread);
             System.out.println("starting point : " + bcoThread.getSolution());
@@ -146,11 +146,11 @@ public class Benchmark {
 
         int maxTime = 120000;  // number of iterations
         int BEESNUMBER = 100;  // number of bees
-        int NC = 5;
+        int NC = 10;
         System.out.println("Début du benchmark... \n");
-        creationBitCounterBench(maxTime, BEESNUMBER, NC, true);
-        creationFermatBench(maxTime, BEESNUMBER, NC, false);
-        creationColortBench(maxTime, BEESNUMBER, NC, false);
+        creationBitCounterBench(maxTime, BEESNUMBER, NC, 10, true);
+        //creationFermatBench(maxTime, BEESNUMBER, NC, 4, false);
+        //creationColortBench(maxTime, BEESNUMBER, NC, 4, false);
         System.out.println("Fin du benchmark... \n");
     }
 }

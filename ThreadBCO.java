@@ -2,18 +2,20 @@ import java.util.*;
 
 public class ThreadBCO extends BCO{
 
-    private final int quart1;
-    private final int quart2;
-    private final int quart3;
+    private final int nbBee;
     List<Bee> explorateurs = new ArrayList<>();
     List<Bee> suiveurs = new ArrayList<>();
 
+    private List<BeeThread> omarEtFred = new ArrayList<>();
+    private int fredEtJamy;
+    private BeeThread fredEtGeorges;
 
-    public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
+    public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc, int nbThread) {
         super(startPoint, obj, maxTime, nbBee, nc);
-        this.quart1 = nbBee / 4;
-        this.quart2 = nbBee / 2;
-        this.quart3 = 3 * nbBee / 4;
+        if (nbThread > 0) {
+            fredEtJamy = nbThread;
+        } else fredEtJamy = 1;
+        this.nbBee = nbBee;
     }
 
     @Override
@@ -24,23 +26,23 @@ public class ThreadBCO extends BCO{
         // Ou que la solution optimale a été trouvée
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
 
-            // Création des Threads
-            BeeThread beeThread1 = new BeeThread( 0, quart1,bees);
-            BeeThread beeThread2 = new BeeThread( quart1, quart2,bees);
-            BeeThread beeThread3 = new BeeThread( quart2, quart3,bees);
-            BeeThread beeThread4 = new BeeThread( quart3, bees.size(),bees);
-
-            // Run de tous les threads
-            // Début de la recherche pour chaque Abeille
-            // Étape 2
-            beeThread1.start();
-            beeThread2.start();
-            beeThread3.start();
-            beeThread4.start();
-
-            //Attente de la fin d'activité de tous les threads
-            while (beeThread1.isAlive() || beeThread2.isAlive() || beeThread3.isAlive() || beeThread4.isAlive()) {
+            for (int i = 1 ; i <= fredEtJamy ; i++){
+                fredEtGeorges = new BeeThread(nbBee/fredEtJamy * (i-1), nbBee/fredEtJamy * i, bees);
+                omarEtFred.add(fredEtGeorges);
+                fredEtGeorges.start();
             }
+
+            boolean stillAlive;
+            //Attente de la fin d'activité de tous les threads
+            do {
+                stillAlive = false;
+                for (int i = 0 ; i < fredEtJamy ; i++){
+                    stillAlive = stillAlive || omarEtFred.get(i).isAlive();
+                }
+            }
+            while (stillAlive);
+
+            omarEtFred.clear();
 
             // Tri des abeilles selon leur résultat
             // Etape 4
@@ -76,14 +78,14 @@ public class ThreadBCO extends BCO{
 
     public static void main(String[] args) {
 
-        int ITMAX = 2000;  // number of iterations
+        int ITMAX = 60000;  // number of iterations
         int BEESNUMBER = 100;  // number of bees
         int NC = 10;
 
-        int n = 500;
+        int n = 5000;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
-        ThreadBCO bco = new ThreadBCO(D, obj, ITMAX, BEESNUMBER, NC);
+        ThreadBCO bco = new ThreadBCO(D, obj, ITMAX, BEESNUMBER, NC, 10);
         System.out.println(bco);
         System.out.println("starting point : " + bco.getSolution());
         System.out.println("optimizing ...");
