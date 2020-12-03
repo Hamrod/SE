@@ -42,12 +42,14 @@ import java.util.Random;
      * @param explorateurs Liste des explorateurs a suivre
      */
     public void danse(List<Bee> explorateurs) {
-        //donne l'indice de la bee a suivre
-        int index = (int) (Math.random() * explorateurs.size()*0.5);
+        if (!explorateurs.isEmpty()) {
 
-        Bee explor = explorateurs.get(index);
-        this.solution = explor.getSolution();
+            //donne l'indice de la bee a suivre
+            int index = (int) (Math.random() * explorateurs.size()*0.10);
 
+            Bee explor = explorateurs.get(index);
+            this.solution = explor.getSolution();
+        }
     }
 
     /**

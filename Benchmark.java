@@ -3,7 +3,7 @@ public class Benchmark {
     private static void creationBitCounterBench(int maxTime, int beeNb, int nc, int threadNb, boolean trace) {
         long startTime = System.currentTimeMillis();
 
-        int n = 20000;
+        int n = 1000;
         Objective obj = new BitCounter(n);
         Data D = obj.solutionSample();
         IterativeBCO bcoIteratif = new IterativeBCO(D, obj, maxTime, beeNb, nc);
@@ -148,8 +148,8 @@ public class Benchmark {
         int BEESNUMBER = 100;  // number of bees
         int NC = 10;
         System.out.println("Début du benchmark... \n");
-        creationBitCounterBench(maxTime, BEESNUMBER, NC, 10, true);
-        //creationFermatBench(maxTime, BEESNUMBER, NC, 4, false);
+        creationBitCounterBench(maxTime, BEESNUMBER, NC, 10, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 4, false);
         //creationColortBench(maxTime, BEESNUMBER, NC, 4, false);
         System.out.println("Fin du benchmark... \n");
     }
