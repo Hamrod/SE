@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Random;
 
- public class Bee extends binMeta implements Comparable{
+ public class Bee extends binMeta {
 
     // Nombre d'iteration maximum d'un agent
     private int nc;
@@ -115,10 +115,4 @@ import java.util.Random;
             iteration++;
         }
     }
-
-     @Override
-     public int compareTo(Object o) {
-            Bee bee = (Bee) o;
-            return this.solution.compareTo(bee.solution);
-     }
  }

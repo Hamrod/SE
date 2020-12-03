@@ -6,15 +6,15 @@ public class ThreadBCO extends BCO{
     List<Bee> explorateurs = new ArrayList<>();
     List<Bee> suiveurs = new ArrayList<>();
 
-    private List<BeeThread> omarEtFred = new ArrayList<>();
-    private int fredEtJamy;
-    private BeeThread fredEtGeorges;
+    private final List<BeeThread> listeThread = new ArrayList<>();
+    private final int nbThread;
+
 
     public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc, int nbThread) {
         super(startPoint, obj, maxTime, nbBee, nc);
         if (nbThread > 0) {
-            fredEtJamy = nbThread;
-        } else fredEtJamy = 1;
+            this.nbThread = nbThread;
+        } else this.nbThread = 1;
         this.nbBee = nbBee;
     }
 
@@ -26,23 +26,25 @@ public class ThreadBCO extends BCO{
         // Ou que la solution optimale a été trouvée
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
 
-            for (int i = 1 ; i <= fredEtJamy ; i++){
-                fredEtGeorges = new BeeThread(nbBee/fredEtJamy * (i-1), nbBee/fredEtJamy * i, bees);
-                omarEtFred.add(fredEtGeorges);
-                fredEtGeorges.start();
+            //Parcours des threads, crétion et lancement
+            for (int i = 1 ; i <= nbThread ; i++){
+                BeeThread thread;thread = new BeeThread(nbBee/nbThread * (i-1), nbBee/nbThread * i, bees);
+                listeThread.add(thread);
+                thread.start();
             }
 
-            boolean stillAlive;
             //Attente de la fin d'activité de tous les threads
+            boolean stillAlive;
+
             do {
                 stillAlive = false;
-                for (int i = 0 ; i < fredEtJamy ; i++){
-                    stillAlive = stillAlive || omarEtFred.get(i).isAlive();
+                for (int i = 0 ; i < nbThread ; i++){
+                    stillAlive = stillAlive || listeThread.get(i).isAlive();
                 }
             }
             while (stillAlive);
 
-            omarEtFred.clear();
+            listeThread.clear();
 
             // Tri des abeilles selon leur résultat
             // Etape 4

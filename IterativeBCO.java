@@ -1,9 +1,6 @@
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class IterativeBCO extends BCO {
-
 
     public IterativeBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         super(startPoint, obj, maxTime, nbBee, nc);
