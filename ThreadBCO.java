@@ -1,10 +1,13 @@
 import java.util.*;
 
-public class ThreadBCO extends BCO {
+public class ThreadBCO extends BCO{
 
     private final int quart1;
     private final int quart2;
     private final int quart3;
+    List<Bee> explorateurs = new ArrayList<>();
+    List<Bee> suiveurs = new ArrayList<>();
+
 
     public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         super(startPoint, obj, maxTime, nbBee, nc);
@@ -13,75 +16,43 @@ public class ThreadBCO extends BCO {
         this.quart3 = 3 * nbBee / 4;
     }
 
-    private int tri(List<Bee> beesList, int begin, int end) {
-        int pivot = beesList.size()-1;
-        int i = (begin-1);
-
-        for (int j = begin; j < end; j++) {
-            if (beesList.get(j).solution.compareTo(beesList.get(pivot).solution) <= 0) {
-                i++;
-
-                Bee swapTemp = beesList.get(i);
-                beesList.set(i,beesList.get(j));
-                beesList.set(j,swapTemp);
-            }
-        }
-
-        Bee swapTemp = beesList.get(i);
-        beesList.set(i, beesList.get(beesList.size()-1));
-        beesList.set(beesList.size()-1,  swapTemp);
-
-        return i+1;
-    }
-
-
     @Override
     public void optimize() {
         long startime = System.currentTimeMillis();
 
+        // Les Abeille arretent de chercher quand le temps maximum est atteints
+        // Ou que la solution optimale a été trouvée
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
 
-            Thread threadBee1 = new Thread(() -> {
-                for (int i = 0; i < quart1; i++) {
-                    bees.get(i).optimize();
-                }
-            }, "ThreadBee1");
-
-            Thread threadBee2 = new Thread(() -> {
-                for (int i = quart1; i < quart2; i++) {
-                    bees.get(i).optimize();
-                }
-            }, "ThreadBee1");
-
-            Thread threadBee3 = new Thread(() -> {
-                for (int i = quart2; i < quart3; i++) {
-                    bees.get(i).optimize();
-                }
-            }, "ThreadBee3");
-
-            Thread threadBee4 = new Thread(() -> {
-                for (int i = quart3; i < bees.size(); i++) {
-                    bees.get(i).optimize();
-                }
-            }, "ThreadBee4");
+            // Création des Threads
+            BeeThread beeThread1 = new BeeThread( 0, quart1,bees);
+            BeeThread beeThread2 = new BeeThread( quart1, quart2,bees);
+            BeeThread beeThread3 = new BeeThread( quart2, quart3,bees);
+            BeeThread beeThread4 = new BeeThread( quart3, bees.size(),bees);
 
             // Run de tous les threads
-            threadBee1.start();
-            threadBee2.start();
-            threadBee3.start();
-            threadBee4.start();
+            // Début de la recherche pour chaque Abeille
+            // Étape 2
+            beeThread1.start();
+            beeThread2.start();
+            beeThread3.start();
+            beeThread4.start();
 
-            while (threadBee1.isAlive() || threadBee2.isAlive() || threadBee3.isAlive() || threadBee4.isAlive()) {
-
+            //Attente de la fin d'activité de tous les threads
+            while (beeThread1.isAlive() || beeThread2.isAlive() || beeThread3.isAlive() || beeThread4.isAlive()) {
             }
 
+            // Tri des abeilles selon leur résultat
+            // Etape 4
             Collections.sort(bees, (b1, b2) -> {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
 
-            List<Bee> explorateurs = new ArrayList<>();
-            List<Bee> suiveurs = new ArrayList<>();
+            explorateurs.clear();
+            suiveurs.clear();
 
+            // Choix de chaque abeille => Continuer ou changer de role
+            // Etape 5
             for (Bee bee : bees) {
                 bee.choice(bees.indexOf(bee));
 

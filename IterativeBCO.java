@@ -4,31 +4,10 @@ import java.util.List;
 
 public class IterativeBCO extends BCO {
 
+
     public IterativeBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         super(startPoint, obj, maxTime, nbBee, nc);
     }
-
-    private int tri(List<Bee> beesList, int begin, int end) {
-        int pivot = beesList.size()-1;
-        int i = (begin-1);
-
-        for (int j = begin; j < end; j++) {
-            if (beesList.get(j).solution.compareTo(beesList.get(pivot).solution) <= 0) {
-                i++;
-
-                Bee swapTemp = beesList.get(i);
-                beesList.set(i,beesList.get(j));
-                beesList.set(j,swapTemp);
-            }
-        }
-
-        Bee swapTemp = beesList.get(i);
-        beesList.set(i, beesList.get(beesList.size()-1));
-        beesList.set(beesList.size()-1,  swapTemp);
-
-        return i+1;
-    }
-
 
     /**
      * Simule une ruche en suivant le principe du BCO (voir BeeColonyOpt.pdf a la racine du projet)
@@ -54,8 +33,8 @@ public class IterativeBCO extends BCO {
                 return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
             });
 
-            List<Bee> explorateurs = new ArrayList<>();
-            List<Bee> suiveurs = new ArrayList<>();
+            explorateurs.clear();
+            suiveurs.clear();
 
             // Choix de chaque abeille => Continuer ou changer de role
             // Etape 5
