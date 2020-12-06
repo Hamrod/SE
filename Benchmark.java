@@ -137,8 +137,6 @@ public class Benchmark {
             System.out.println("corresponding to the matrix :\n" + cp.show());
         }
         System.out.println("Temps d'exec avec Threads : " + (System.currentTimeMillis() - startTime) + " ms");
-
-
     }
 
 
@@ -147,30 +145,12 @@ public class Benchmark {
         int maxTime = 120000;  // number of iterations
         int BEESNUMBER = 100;  // number of bees
         int NC = 10;
+
         System.out.println("Début du benchmark... \n");
         System.out.println("Bit counter : ");
         creationBitCounterBench(maxTime, BEESNUMBER, NC, 6, false);
         System.out.println();
         System.out.println("Fermat : ");
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
-        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
         creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
         System.out.println();
         System.out.println("Color Partition : ");

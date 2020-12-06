@@ -3,12 +3,8 @@ import java.util.*;
 public class ThreadBCO extends BCO{
 
     private final int nbBee;
-    List<Bee> explorateurs = new ArrayList<>();
-    List<Bee> suiveurs = new ArrayList<>();
-
     private final List<BeeThread> listeThread = new ArrayList<>();
     private final int nbThread;
-
 
     public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc, int nbThread) {
         super(startPoint, obj, maxTime, nbBee, nc);
@@ -25,7 +21,7 @@ public class ThreadBCO extends BCO{
         boolean dernierIdentiques = false;
 
         // Les Abeille arretent de chercher quand le temps maximum est atteints
-        // Ou que la solution optimale a été trouvée
+        // Ou que la solution optimale a été trouvée ou qu'il n'y a plus de modification de la meilleur solution
         while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0 && !dernierIdentiques) {
 
             //Parcours des threads, crétion et lancement
@@ -47,9 +43,11 @@ public class ThreadBCO extends BCO{
 
             listeThread.clear();
 
+            // Étape 3
             BackToHive();
 
-
+            // Étape 8
+            // On rends la meilleur solution trouvée
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
 

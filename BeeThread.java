@@ -11,7 +11,7 @@ public class BeeThread extends Thread implements Runnable{
         this.bees = bees;
     }
 
-
+    // Le thread va faire explorer les abeilles dont il est responsable
     @Override
     public void run() {
         for (int i = startingPoint; i < endingPoint; i++) {

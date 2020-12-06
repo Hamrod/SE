@@ -49,7 +49,7 @@ il a des temps d'exceution visiblement plus long. Cet effet a été observé sur
 
 Nous avons fait une moyenne sur 10 exécutions avec les parametres suivants
 
-int maxTime = 120000 // N'a jamais été atteint
+int maxTime = 120000   // N'a jamais été atteint
 int BEESNUMBER = 100
 int NC = 10
 
@@ -64,3 +64,10 @@ Temps d'exec en séquentiel BitCounter: 2914 ms
 Temps d'exec avec Threads BitCounter: 1725 ms
 Temps d'exec en séquentiel Fermat : 564 ms
 Temps d'exec avec Threads Fermat : 407 ms
+
+
+Nous avons du rajouter une condition d'arret avec le tableau des dernieres solutions car avec le problème de
+colorPartition le résultat optimal n'est pas 0. Nous prenons donc les dernieres solutions en les comparant : si elles
+sont toutes identiques alors nous considerons que l'algorithme a trouvé la meilleure solution. Cela impacte legerement
+les performances (a peu près 5% de temps en plus) mais c'est le seul moyen que nous avons trouvé pour que le probleme
+de color partition ne se ternime pas au timer (sans modifier le code du probleme pour le normaliser).
