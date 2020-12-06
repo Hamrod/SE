@@ -13,8 +13,8 @@ public class Benchmark {
             System.out.println("Optimizing It...");
         }
         bcoIteratif.optimize();
+        System.out.println(bcoIteratif);
         if (trace) {
-            System.out.println(bcoIteratif);
             System.out.println("solution : " + bcoIteratif.getSolution());
             System.out.println();
         }
@@ -30,8 +30,8 @@ public class Benchmark {
         }
 
         bcoThread.optimize();
+        System.out.println(bcoThread);
         if (trace) {
-            System.out.println(bcoThread);
             System.out.println("solution : " + bcoThread.getSolution());
             System.out.println();
         }
@@ -53,8 +53,8 @@ public class Benchmark {
         }
 
         bcoIteratif.optimize();
+        System.out.println(bcoIteratif);
         if (trace) {
-            System.out.println(bcoIteratif);
             System.out.println("solution : " + bcoIteratif.getSolution());
         }
         Data x = new Data(bcoIteratif.solution, 0, ndigits - 1);
@@ -79,8 +79,8 @@ public class Benchmark {
         }
 
         bcoThread.optimize();
+        System.out.println(bcoThread);
         if (trace) {
-            System.out.println(bcoThread);
             System.out.println("solution : " + bcoThread.getSolution());
         }
         Data x1 = new Data(bcoThread.solution, 0, ndigits - 1);
@@ -112,8 +112,8 @@ public class Benchmark {
             System.out.println("optimizing ...");
         }
         bcoIteratif.optimize();
+        System.out.println(bcoIteratif);
         if (trace) {
-            System.out.println(bcoIteratif);
             System.out.println("solution : " + bcoIteratif.getSolution());
             cp.value(bcoIteratif.solution);
             System.out.println("corresponding to the matrix :\n" + cp.show());
@@ -130,8 +130,8 @@ public class Benchmark {
             System.out.println("optimizing ...");
         }
         bcoThread.optimize();
+        System.out.println(bcoThread);
         if (trace) {
-            System.out.println(bcoThread);
             System.out.println("solution : " + bcoThread.getSolution());
             cp.value(bcoThread.solution);
             System.out.println("corresponding to the matrix :\n" + cp.show());
@@ -148,11 +148,34 @@ public class Benchmark {
         int BEESNUMBER = 100;  // number of bees
         int NC = 10;
         System.out.println("Début du benchmark... \n");
+        System.out.println("Bit counter : ");
         creationBitCounterBench(maxTime, BEESNUMBER, NC, 6, false);
         System.out.println();
+        System.out.println("Fermat : ");
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
         creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
         System.out.println();
-        //creationColortBench(maxTime, BEESNUMBER, NC, 4, false);
-        System.out.println("Fin du benchmark... \n");
+        System.out.println("Color Partition : ");
+        creationColortBench(maxTime, BEESNUMBER, NC, 6, false);
+        System.out.println();
+        System.out.println("Fin du benchmark...");
     }
 }

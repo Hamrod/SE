@@ -8,6 +8,7 @@ public abstract class BCO extends binMeta {
     List<Bee> bees;
     List<Bee> explorateurs = new ArrayList<>();
     List<Bee> suiveurs = new ArrayList<>();
+    Data[] solutions = new Data[5000];
 
     public BCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc) {
         try {

@@ -6,8 +6,6 @@ import java.util.Random;
     // Nombre d'iteration maximum d'un agent
     private int nc;
 
-    private boolean follower;
-
     public Bee(Data startPoint,Objective obj,long maxTime, int nc)
     {
         try
@@ -23,50 +21,11 @@ import java.util.Random;
             this.obj = obj;
             this.objValue = this.obj.value(this.solution);
             this.metaName = "Bee";
-            this.follower = false;
         }
         catch (Exception e)
         {
             e.printStackTrace();
             System.exit(1);
-        }
-    }
-
-    public boolean isFollower() {
-        return follower;
-    }
-
-    /**
-     * Détermine qui une abeille suiveuse va suivre
-     *
-     * @param explorateurs Liste des explorateurs a suivre
-     */
-    public void danse(List<Bee> explorateurs) {
-        if (!explorateurs.isEmpty()) {
-
-            //donne l'indice de la bee a suivre
-            int index = (int) (Math.random() * explorateurs.size()*0.10);
-
-            Bee explor = explorateurs.get(index);
-            this.solution = explor.getSolution();
-        }
-    }
-
-    /**
-     * Détermine si une abeille change d'état (suiveuse / exploratrice) suivant son rang par rapport aux autres.
-     * Une abeille ayant de mauvaise performances a plsu de chance de devenir une suiveuse
-     *
-     * @param index rang de l'abeille par rapport aux autres
-     */
-    public void choice(int index) {
-        double R = Math.random();
-        double seuil = 1 - index * 0.9;
-        //Le seuil permet de gerer le pourcentage de chance qu'une abeille a de suivre/explorer
-        // la courbe est volontairement raide ce qui permet que les meilleurs explorateurs aient plus de chance de continuer
-        // contrairement aux pires qui ont plus de chance de se mettre a suivre
-
-        if (R > seuil) {
-            follower = !follower;
         }
     }
 

@@ -21,10 +21,12 @@ public class ThreadBCO extends BCO{
     @Override
     public void optimize() {
         long startime = System.currentTimeMillis();
+        int currentSolution = 0;
+        boolean dernierIdentiques = false;
 
         // Les Abeille arretent de chercher quand le temps maximum est atteints
         // Ou que la solution optimale a été trouvée
-        while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
+        while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0 && !dernierIdentiques) {
 
             //Parcours des threads, crétion et lancement
             for (int i = 1 ; i <= nbThread ; i++){
@@ -47,36 +49,23 @@ public class ThreadBCO extends BCO{
 
             BackToHive();
 
-            /*
-            // Tri des abeilles selon leur résultat
-            // Etape 4
-            Collections.sort(bees, (b1, b2) -> {
-                return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
-            });
-
-            explorateurs.clear();
-            suiveurs.clear();
-
-            // Choix de chaque abeille => Continuer ou changer de role
-            // Etape 5
-            for (Bee bee : bees) {
-                bee.choice(bees.indexOf(bee));
-
-                if (!bee.isFollower()) {
-                    explorateurs.add(bee);
-                } else {
-                    suiveurs.add(bee);
-                }
-            }
-
-            for (Bee bee : suiveurs) {
-                bee.danse(explorateurs);
-            }
-             */
 
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
 
+            // Regarde si les dix dernières solutions sont identiques, si oui arrête la recherche
+            solutions[currentSolution] = solution;
+            currentSolution++;
+            currentSolution %= solutions.length;
+            dernierIdentiques = true;
+
+            for (int i = 1; i < solutions.length; i++) {
+                if (solutions[i] == null) {
+                    dernierIdentiques = false;
+                    break;
+                }
+                dernierIdentiques = dernierIdentiques && (solutions[i-1] == solutions[i]);
+            }
 
         }
     }

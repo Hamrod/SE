@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Collections;
 
 public class IterativeBCO extends BCO {
@@ -12,10 +13,12 @@ public class IterativeBCO extends BCO {
     @Override
     public void optimize() {
         long startime = System.currentTimeMillis();
+        int currentSolution = 0;
+        boolean dernierIdentiques = false;
 
         // Les Abeille arretent de chercher quand le temps maximum est atteints
         // Ou que la solution optimale a été trouvée
-        while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0) {
+        while (System.currentTimeMillis() - startime < this.maxTime && objValue > 0 && !dernierIdentiques) {
 
             // Début de la recherche pour chaque Abeille
             // Étape 2
@@ -26,37 +29,23 @@ public class IterativeBCO extends BCO {
 
             BackToHive();
 
-            /*
-            // Tri des Abeilles suivant leurs performances
-            // Etape 4
-            Collections.sort(bees, (b1, b2) -> {
-                return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
-            });
-
-            explorateurs.clear();
-            suiveurs.clear();
-
-            // Choix de chaque abeille => Continuer ou changer de role
-            // Etape 5
-            for (Bee bee : bees) {
-               bee.choice(bees.indexOf(bee));
-
-               if (!bee.isFollower()){
-                   explorateurs.add(bee);
-               }
-               else {
-                   suiveurs.add(bee);
-               }
-            }
-            // Choix pour chaque suiveuse de quel abeille suivre
-            // Etape 7
-            for (Bee bee : suiveurs) {
-                bee.danse(explorateurs);
-            }*/
-
             // Selection de la meilleure solution partielle
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
+
+            // Regarde si les dix dernières solutions sont identiques, si oui arrête la recherche
+            solutions[currentSolution] = solution;
+            currentSolution++;
+            currentSolution %= solutions.length;
+            dernierIdentiques = true;
+
+            for (int i = 1; i < solutions.length; i++) {
+                if (solutions[i] == null) {
+                    dernierIdentiques = false;
+                    break;
+                }
+                dernierIdentiques = dernierIdentiques && (solutions[i-1] == solutions[i]);
+            }
         }
     }
 
