@@ -24,6 +24,9 @@ public class IterativeBCO extends BCO {
                 bee.optimize();
             }
 
+            BackToHive();
+
+            /*
             // Tri des Abeilles suivant leurs performances
             // Etape 4
             Collections.sort(bees, (b1, b2) -> {
@@ -49,7 +52,7 @@ public class IterativeBCO extends BCO {
             // Etape 7
             for (Bee bee : suiveurs) {
                 bee.danse(explorateurs);
-            }
+            }*/
 
             // Selection de la meilleure solution partielle
             this.objValue = bees.get(0).objValue;

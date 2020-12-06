@@ -33,4 +33,52 @@ public abstract class BCO extends binMeta {
             System.exit(1);
         }
     }
+
+    /**
+     * Trie la liste des abeilles selon leurs performances
+     * Détermine si une abeille devient "recruteuse" ou "suiveuse" selon sa place dans la liste d'abeilles
+     * Détermine quelle "recruteuse" une "suiveuse" va suivre
+     */
+    void BackToHive() {
+        Collections.sort(bees, (b1, b2) -> {
+            return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
+        });
+
+        List<Bee> suiveuses = new ArrayList<>();
+        List<Bee> recruteuse = new ArrayList<>();
+
+        for (Bee bee : bees) {
+            double R = Math.random() * bees.size();
+            double seuil = bees.size() - (bees.indexOf(bee) + 1) * 0.9;
+            //Le seuil permet de gerer le pourcentage de chance qu'une abeille a de suivre/recruter
+            // la courbe est volontairement raide ce qui permet que les meilleurs exploratrices aient plus de chance de continuer
+            // contrairement aux pires qui ont plus de chance de se mettre a suivre
+
+            if (R > seuil) {
+                suiveuses.add(bee);
+            } else {
+                recruteuse.add(bee);
+            }
+        }
+
+        for (Bee suiveuse : suiveuses) {
+            boolean choisi = false;
+            while (!choisi) {
+                double seuil = 0;
+                double max = recruteuse.size();
+                double R = Math.random() * recruteuse.size();
+                for (int i = 1; i <= 100; i++) {
+                    seuil += max * (0.5 / i);
+                    max = 100 - seuil;
+                    if (R < seuil) {
+                        suiveuse.solution = recruteuse.get(i).getSolution();
+                        suiveuse.objValue = recruteuse.get(i).getObjVal();
+                        choisi = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 }

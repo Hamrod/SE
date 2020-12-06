@@ -45,6 +45,9 @@ public class ThreadBCO extends BCO{
 
             listeThread.clear();
 
+            BackToHive();
+
+            /*
             // Tri des abeilles selon leur résultat
             // Etape 4
             Collections.sort(bees, (b1, b2) -> {
@@ -69,6 +72,7 @@ public class ThreadBCO extends BCO{
             for (Bee bee : suiveurs) {
                 bee.danse(explorateurs);
             }
+             */
 
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;

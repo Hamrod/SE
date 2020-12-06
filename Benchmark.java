@@ -149,7 +149,9 @@ public class Benchmark {
         int NC = 10;
         System.out.println("Début du benchmark... \n");
         creationBitCounterBench(maxTime, BEESNUMBER, NC, 6, false);
+        System.out.println();
         creationFermatBench(maxTime, BEESNUMBER, NC, 6, false);
+        System.out.println();
         //creationColortBench(maxTime, BEESNUMBER, NC, 4, false);
         System.out.println("Fin du benchmark... \n");
     }
