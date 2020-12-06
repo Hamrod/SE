@@ -13,8 +13,8 @@ Il y a 2 classes principales pour cet algorithme : IterativeBCO qui exécute le 
 des regroupements d'abeilles en threads pour gagner des performances.
 
 
-La version séquentiel est fonctionnel avec des temps de calcul correct.
-L'implémentation avec les threads est aussi fonctionnelle, le principe est de regrouper les abeilles par thread pour qu'elles puissent explorer en paralelle.
+La version séquentielle fait explorer les abeilles une par une avec des temps de calcul correct.
+Au contraire dans l'implémentation avec Threads, le principe est de regrouper les abeilles par thread pour qu'elles puissent explorer en paralelle.
 
 L'idée de base du multi-Threading avec un thread par abeille exploratrice et toutes les autres abeilles la suivant dans ce meme thread n'a au final pas été retenue.
 Il y aurait beaucoup trop de threads dans un premier temps et ne serai pas très efficace sur le long terme.

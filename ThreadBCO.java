@@ -35,7 +35,6 @@ public class ThreadBCO extends BCO{
 
             //Attente de la fin d'activité de tous les threads
             boolean stillAlive;
-
             do {
                 stillAlive = false;
                 for (int i = 0 ; i < nbThread ; i++){

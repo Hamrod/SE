@@ -20,3 +20,30 @@ L'idée de base du multi-Threading avec un thread par abeille exploratrice et to
 Il y aurait beaucoup trop de threads dans un premier temps et ne serai pas très efficace sur le long terme.
 
 
+ALOGRITHME EN DÉTAIL :
+
+NC => Nombre de mouvements construtifs que peut faire une abeille
+
+1 - Toutes les abeilles ont une solution nulle
+2 - Pour chaque abeille :
+        a - Mettre k = 1
+        b - Evaluer toutes les possibilités proches
+        c - En choisir une
+        d - k = k+1, Si k <= NC retourner a l'étape b
+3 - Toutes les abeilles rentrent a la ruche
+4 - Tri des abeilles en fonction de la solution partielle qu'elles ont
+5 - Chaque abeille décide de continuer son exploration ou de suivre une abeille avec un meilleur résultat
+6 - chaque suiveuse décide quelle exploratrice elle va suivre
+7 - Si la condition d'arret n'est pas validée retourner a l'étape 2 ( ici la condition est le temps ou l'objectif est 0)
+8 - afficher le meilleur résultat
+
+
+PERFORMANCES :
+
+Nous avons principalement cherché à comparer les performances temporelles entre les deux versions.
+
+La version avec threads est en moyenne 30% plus efficace. Parfois, du fait que la méthode de recherche des abeilles
+soit entierement basé sur du hasard, il a des temps d'exceution visiblement plus long. Cet effet a été observé sur les
+deux versions
+
+
