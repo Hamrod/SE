@@ -33,17 +33,32 @@ NC => Nombre de mouvements construtifs que peut faire une abeille
 3 - Toutes les abeilles rentrent a la ruche
 4 - Tri des abeilles en fonction de la solution partielle qu'elles ont
 5 - Chaque abeille décide de continuer son exploration ou de suivre une abeille avec un meilleur résultat
-6 - chaque suiveuse décide quelle exploratrice elle va suivre
-7 - Si la condition d'arret n'est pas validée retourner a l'étape 2 ( ici la condition est le temps ou l'objectif est 0)
-8 - afficher le meilleur résultat
+6 - Chaque suiveuse décide quelle exploratrice elle va suivre
+7 - Si la condition d'arret n'est pas validée retourner a l'étape 2 ( ici la condition est : le temps ou l'objectif a 0)
+8 - Afficher le meilleur résultat
 
 
 PERFORMANCES :
 
 Nous avons principalement cherché à comparer les performances temporelles entre les deux versions.
 
-La version avec threads est en moyenne 30% plus efficace. Parfois, du fait que la méthode de recherche des abeilles
-soit entierement basé sur du hasard, il a des temps d'exceution visiblement plus long. Cet effet a été observé sur les
-deux versions
+La version avec threads est en moyenne 30% plus efficace.
 
+Parfois, du fait que la méthode de recherche des abeilles soit entierement basé sur du hasard,
+il a des temps d'exceution visiblement plus long. Cet effet a été observé sur les deux versions
 
+Nous avons fait une moyenne sur 10 exécutions avec les parametres suivants
+
+int maxTime = 120000 // N'a jamais été atteints
+int BEESNUMBER = 100
+int NC = 10
+
+Sur les problèmes suivants :
+
+BitCounter avec n = 1000
+Fermat avec exp = 2 et ndigits = 10;
+
+Temps d'exec en séquentiel BitCounter: 4291 ms
+Temps d'exec avec Threads BitCounter: 3068 ms
+Temps d'exec en séquentiel Fermat : 147 ms
+Temps d'exec avec Threads Fermat : 76 ms
