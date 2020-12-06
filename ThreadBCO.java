@@ -3,12 +3,8 @@ import java.util.*;
 public class ThreadBCO extends BCO{
 
     private final int nbBee;
-    List<Bee> explorateurs = new ArrayList<>();
-    List<Bee> suiveurs = new ArrayList<>();
-
     private final List<BeeThread> listeThread = new ArrayList<>();
     private final int nbThread;
-
 
     public ThreadBCO(Data startPoint, Objective obj, long maxTime, int nbBee, int nc, int nbThread) {
         super(startPoint, obj, maxTime, nbBee, nc);
@@ -45,39 +41,13 @@ public class ThreadBCO extends BCO{
 
             listeThread.clear();
 
+            // Début étape 3
             BackToHive();
 
-            /*
-            // Tri des abeilles selon leur résultat
-            // Etape 4
-            Collections.sort(bees, (b1, b2) -> {
-                return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
-            });
-
-            explorateurs.clear();
-            suiveurs.clear();
-
-            // Choix de chaque abeille => Continuer ou changer de role
-            // Etape 5
-            for (Bee bee : bees) {
-                bee.choice(bees.indexOf(bee));
-
-                if (!bee.isFollower()) {
-                    explorateurs.add(bee);
-                } else {
-                    suiveurs.add(bee);
-                }
-            }
-
-            for (Bee bee : suiveurs) {
-                bee.danse(explorateurs);
-            }
-             */
-
+            // Étape 8
+            // Selection de la meilleure solution partielle
             this.objValue = bees.get(0).objValue;
             this.solution = bees.get(0).solution;
-
-
         }
     }
 

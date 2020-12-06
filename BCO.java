@@ -40,6 +40,9 @@ public abstract class BCO extends binMeta {
      * Détermine quelle "recruteuse" une "suiveuse" va suivre
      */
     void BackToHive() {
+
+        // Étape 4
+        // Tri des abeilles en fonction de leurs performances
         Collections.sort(bees, (b1, b2) -> {
             return Double.compare(obj.value(b1.solution), obj.value(b2.solution));
         });
@@ -47,6 +50,8 @@ public abstract class BCO extends binMeta {
         List<Bee> suiveuses = new ArrayList<>();
         List<Bee> recruteuse = new ArrayList<>();
 
+        // Étape 5
+        // Chaque abeille décide si elle continue don exploration ou si elle deviens une suiveuse
         for (Bee bee : bees) {
             double R = Math.random() * bees.size();
             double seuil = bees.size() - (bees.indexOf(bee) + 1) * 0.9;
@@ -61,6 +66,8 @@ public abstract class BCO extends binMeta {
             }
         }
 
+        // Étape 6
+        // Chaque suiveuse décide quelle recruteuse elle va suivre
         for (Bee suiveuse : suiveuses) {
             boolean choisi = false;
             while (!choisi) {

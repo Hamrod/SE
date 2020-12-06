@@ -42,14 +42,14 @@ PERFORMANCES :
 
 Nous avons principalement cherché à comparer les performances temporelles entre les deux versions.
 
-La version avec threads est en moyenne 30% plus efficace.
+La version avec threads est en moyenne 35% plus efficace.
 
 Parfois, du fait que la méthode de recherche des abeilles soit entierement basé sur du hasard,
 il a des temps d'exceution visiblement plus long. Cet effet a été observé sur les deux versions
 
 Nous avons fait une moyenne sur 10 exécutions avec les parametres suivants
 
-int maxTime = 120000 // N'a jamais été atteints
+int maxTime = 120000 // N'a jamais été atteint
 int BEESNUMBER = 100
 int NC = 10
 
@@ -58,7 +58,9 @@ Sur les problèmes suivants :
 BitCounter avec n = 1000
 Fermat avec exp = 2 et ndigits = 10;
 
-Temps d'exec en séquentiel BitCounter: 4291 ms
-Temps d'exec avec Threads BitCounter: 3068 ms
-Temps d'exec en séquentiel Fermat : 147 ms
-Temps d'exec avec Threads Fermat : 76 ms
+Et nous obtenons :
+
+Temps d'exec en séquentiel BitCounter: 2914 ms
+Temps d'exec avec Threads BitCounter: 1725 ms
+Temps d'exec en séquentiel Fermat : 564 ms
+Temps d'exec avec Threads Fermat : 407 ms
